@@ -1,0 +1,9 @@
+pandas>=2.0
+matplotlib>=3.7
+astropy>=6.0
+astroquery>=0.4.7
+scikit-learn>=1.4
+jupyter>=1.0
+pytest>=9.0
+pytest-cov
+tabulate>=0.9

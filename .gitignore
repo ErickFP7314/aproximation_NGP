@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Tooling local
+.atl/

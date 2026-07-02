@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Aproximaciones del Polo Norte Galactico (NGP) vs. valor de referencia IAU.}
+\label{tab:ngp_comparison}
+\begin{tabular}{lrrrrr}
+\toprule
+method & alpha_NGP & delta_NGP & std_alpha & std_delta & error_vs_iau_deg \\
+\midrule
+IAU reference & 12.8500 & 27.1300 & NaN & NaN & 0.0000 \\
+great_circle_pole (flagship, sin distancia) & 12.9463 & 26.4924 & NaN & NaN & 1.4378 \\
+aprox_ar_svd (SVD 2D, sin prior) & 12.9463 & 26.4924 & 0.0030 & 0.0410 & 1.4378 \\
+aprox_dec2 (ventana AR) & 12.9605 & 28.3286 & 0.2914 & 6.8516 & 1.8943 \\
+ngp_3d_ransac (rt=2.0, con distancia 1/paralaje) & 13.2965 & 28.1176 & NaN & NaN & 6.0154 \\
+aprox_dec1 (top-n |dec|) & 12.4294 & 22.6581 & 5.5405 & 3.5176 & 7.2607 \\
+\bottomrule
+\end{tabular}
+\end{table}
