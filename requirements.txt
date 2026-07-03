@@ -7,3 +7,11 @@ jupyter>=1.0
 pytest>=9.0
 pytest-cov
 tabulate>=0.9
+
+# Optional — ngp-precision F3 (ngp_weighted_3d.py) parallax zero-point
+# correction (Lindegren et al. 2021, Gaia DR3). NOT required: if this
+# package is absent, ngp_weighted_3d.apply_parallax_zero_point /
+# weighted_tls_plane fall back gracefully to uncorrected parallaxes with a
+# UserWarning (zero_point_corrected=False in every result dict — see that
+# module's docstring). Uncomment to enable the real zero-point correction:
+# gaiadr3-zeropoint

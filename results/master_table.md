@@ -1,0 +1,17 @@
+| method       | tracer         |   alpha_NGP |   delta_NGP |   sigma_stat_deg |   sigma_syst_deg |   sigma_total_deg | zero_point_corrected   |   error_vs_iau_deg |   error_vs_km2017_deg |
+|:-------------|:---------------|------------:|------------:|-----------------:|-----------------:|------------------:|:-----------------------|-------------------:|----------------------:|
+| great_circle | cepheids       |     12.9534 |     26.2592 |         0.958445 |          2.4808  |           2.65951 | False                  |           1.63624  |              1.62862  |
+| kinematic    | cepheids       |     12.5659 |     19.9534 |       nan        |        nan       |         nan       | False                  |           8.16903  |              8.11978  |
+| offset_plane | cepheids       |     12.7317 |     28.39   |       nan        |        nan       |         nan       | False                  |           2.01305  |              2.02816  |
+| weighted_tls | cepheids       |     12.7422 |     28.2588 |       nan        |        nan       |         nan       | False                  |           1.82332  |              1.83804  |
+| great_circle | disk_stars     |     12.9463 |     26.4924 |         0.066769 |          1.02178 |           1.02396 | False                  |           1.43775  |              1.43525  |
+| kinematic    | disk_stars     |     12.7428 |     25.8987 |       nan        |        nan       |         nan       | False                  |           1.89342  |              1.8496   |
+| offset_plane | disk_stars     |     12.9666 |     25.6742 |       nan        |        nan       |         nan       | False                  |           2.13872  |              2.12194  |
+| weighted_tls | disk_stars     |     12.9665 |     25.6688 |       nan        |        nan       |         nan       | False                  |           2.14091  |              2.124    |
+| great_circle | ob_stars       |     12.9023 |     25.0822 |         0.192808 |          1.24706 |           1.26188 | False                  |           2.16545  |              2.12838  |
+| kinematic    | ob_stars       |     12.4625 |     23.6064 |       nan        |        nan       |         nan       | False                  |           6.32271  |              6.28225  |
+| offset_plane | ob_stars       |     13.1214 |     23.6926 |       nan        |        nan       |         nan       | False                  |           5.03305  |              5.01624  |
+| weighted_tls | ob_stars       |     13.1215 |     23.6893 |       nan        |        nan       |         nan       | False                  |           5.0366   |              5.01978  |
+| great_circle | young_clusters |     12.6524 |     26.7759 |         0.645003 |          1.13531 |           1.30574 | False                  |           2.66538  |              2.6416   |
+| kinematic    | young_clusters |     12.5816 |     25.0388 |       nan        |        nan       |         nan       | False                  |           4.177    |              4.13839  |
+| offset_plane | young_clusters |     12.8253 |     26.4396 |       nan        |        nan       |         nan       | False                  |           0.765356 |              0.715803 |

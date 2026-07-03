@@ -6,7 +6,7 @@ import warnings
 import pytest
 import pandas as pd
 
-from gaia_fetcher import fetch_gaia_stars, filter_valid_parallax
+from gaia_fetcher import fetch_gaia_stars, filter_valid_parallax, _chunked_sync_query
 
 
 # ---------------------------------------------------------------------------
@@ -137,3 +137,81 @@ def test_filter_valid_parallax_removes_non_positive():
     result = filter_valid_parallax(df)
     assert len(result) == 1
     assert float(result["parallax"].iloc[0]) == pytest.approx(2.0)
+
+
+# ---------------------------------------------------------------------------
+# Test 6: _chunked_sync_query — pagination logic, fully offline via
+# injected launch_fn (ngp-precision B2: generalized out of
+# _default_gaia_query for reuse by tracer_fetcher.py). Spec F2.1-R1-S2
+# (chunked-sync query mechanism).
+# ---------------------------------------------------------------------------
+
+def test_chunked_sync_query_paginates_random_index_windows():
+    """The WHERE clause seen by launch_fn must carry the correct
+    non-overlapping, contiguous [lo, hi) random_index windows, and results
+    from every window must be concatenated (no truncation, no gaps)."""
+    seen_queries = []
+
+    def fake_launch(query: str) -> pd.DataFrame:
+        seen_queries.append(query)
+        # One row per window so we can count windows via len(result).
+        return pd.DataFrame({"a": [1], "b": [2]})
+
+    result = _chunked_sync_query(
+        select_cols="a, b",
+        from_clause="some.table",
+        where_template="random_index >= {lo} AND random_index < {hi}",
+        random_index_max=250,
+        random_index_step=100,
+        output_columns=["a", "b"],
+        launch_fn=fake_launch,
+    )
+
+    # 250 / 100 -> windows [0,100), [100,200), [200,250) = 3 windows
+    assert len(seen_queries) == 3
+    assert "random_index >= 0 AND random_index < 100" in seen_queries[0]
+    assert "random_index >= 100 AND random_index < 200" in seen_queries[1]
+    assert "random_index >= 200 AND random_index < 250" in seen_queries[2]
+    assert len(result) == 3
+    assert list(result.columns) == ["a", "b"]
+
+
+def test_chunked_sync_query_warns_when_window_hits_maxrec_cap():
+    """A window returning >= 2000 rows silently truncated by MAXREC must
+    raise a UserWarning (bias-detection, not a silent wrong answer)."""
+    def fake_launch(query: str) -> pd.DataFrame:
+        return pd.DataFrame({"a": range(2000)})
+
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        _chunked_sync_query(
+            select_cols="a",
+            from_clause="some.table",
+            where_template="random_index >= {lo} AND random_index < {hi}",
+            random_index_max=100,
+            random_index_step=100,
+            output_columns=["a"],
+            launch_fn=fake_launch,
+        )
+
+    messages = [str(w.message) for w in caught]
+    assert any("2000-row cap" in m for m in messages)
+
+
+def test_chunked_sync_query_empty_range_returns_empty_dataframe_with_columns():
+    """random_index_max <= 0 (or step >= max, degenerate range) must not
+    crash — returns an empty DataFrame with the requested output columns."""
+    def unreachable_launch(query: str) -> pd.DataFrame:
+        raise AssertionError("launch_fn should never be called for an empty range")
+
+    result = _chunked_sync_query(
+        select_cols="a, b",
+        from_clause="some.table",
+        where_template="random_index >= {lo} AND random_index < {hi}",
+        random_index_max=0,
+        random_index_step=100,
+        output_columns=["a", "b"],
+        launch_fn=unreachable_launch,
+    )
+    assert len(result) == 0
+    assert list(result.columns) == ["a", "b"]

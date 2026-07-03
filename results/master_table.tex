@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\centering
+\caption{Aproximaciones del Polo Norte Galactico (NGP) vs. valor de referencia IAU.}
+\label{tab:ngp_comparison}
+\begin{tabular}{llrrrrrrrr}
+\toprule
+method & tracer & alpha_NGP & delta_NGP & sigma_stat_deg & sigma_syst_deg & sigma_total_deg & zero_point_corrected & error_vs_iau_deg & error_vs_km2017_deg \\
+\midrule
+great_circle & cepheids & 12.9534 & 26.2592 & 0.9584 & 2.4808 & 2.6595 & False & 1.6362 & 1.6286 \\
+kinematic & cepheids & 12.5659 & 19.9534 & NaN & NaN & NaN & False & 8.1690 & 8.1198 \\
+offset_plane & cepheids & 12.7317 & 28.3900 & NaN & NaN & NaN & False & 2.0131 & 2.0282 \\
+weighted_tls & cepheids & 12.7422 & 28.2588 & NaN & NaN & NaN & False & 1.8233 & 1.8380 \\
+great_circle & disk_stars & 12.9463 & 26.4924 & 0.0668 & 1.0218 & 1.0240 & False & 1.4378 & 1.4353 \\
+kinematic & disk_stars & 12.7428 & 25.8987 & NaN & NaN & NaN & False & 1.8934 & 1.8496 \\
+offset_plane & disk_stars & 12.9666 & 25.6742 & NaN & NaN & NaN & False & 2.1387 & 2.1219 \\
+weighted_tls & disk_stars & 12.9665 & 25.6688 & NaN & NaN & NaN & False & 2.1409 & 2.1240 \\
+great_circle & ob_stars & 12.9023 & 25.0822 & 0.1928 & 1.2471 & 1.2619 & False & 2.1655 & 2.1284 \\
+kinematic & ob_stars & 12.4625 & 23.6064 & NaN & NaN & NaN & False & 6.3227 & 6.2822 \\
+offset_plane & ob_stars & 13.1214 & 23.6926 & NaN & NaN & NaN & False & 5.0330 & 5.0162 \\
+weighted_tls & ob_stars & 13.1215 & 23.6893 & NaN & NaN & NaN & False & 5.0366 & 5.0198 \\
+great_circle & young_clusters & 12.6524 & 26.7759 & 0.6450 & 1.1353 & 1.3057 & False & 2.6654 & 2.6416 \\
+kinematic & young_clusters & 12.5816 & 25.0388 & NaN & NaN & NaN & False & 4.1770 & 4.1384 \\
+offset_plane & young_clusters & 12.8253 & 26.4396 & NaN & NaN & NaN & False & 0.7654 & 0.7158 \\
+\bottomrule
+\end{tabular}
+\end{table}
